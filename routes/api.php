@@ -21,4 +21,5 @@ Route::group(['middleware' => 'throttle:6000,1'], function(){
 Route::group(['middleware' => 'jwt.auth'], function () {
 	Route::get("user/profile", [UserController::class, 'getProfile']);
 	Route::get("user/upgrade-position", [UserController::class, 'upgradePosition']);
+	Route::post("user/remove", [UserController::class, 'removeUser']);
 });

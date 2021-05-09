@@ -96,4 +96,24 @@ class UserService {
 			return Reply::do(false, "Wrong Password", null, __FUNCTION__);
 		}
 	}
+
+	public function removeUser(Request $request){
+		$type = $request->type;
+		$user_id = $request->user_id;
+
+		$result = null;
+		if($type == "delete") {
+			$result = $this->userRepository
+				->deleteUser($user_id);
+		} else if($type == "update") {
+			$result = $this->userRepository
+				->setUserInactive($user_id);
+		}
+
+		if($result) {
+			return Reply::do($result == 200 ? true : false, $result == 200 ? 'Success' : 'Failed', null, __FUNCTION__);
+		} else {
+			return Reply::do(false, 'Error exists', null, __FUNCTION__, 500);
+		}
+	}
 }
