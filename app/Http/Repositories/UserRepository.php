@@ -53,4 +53,35 @@ class UserRepository {
 		$result = $user->save();
 		return $result ? 200 : 500;
 	}
+
+	public function setUserInactive($user_id){
+		$user = $this->getUserById($user_id);
+
+		if($user == null)
+			return 403;
+		else{
+			$user->status = 'Inactive';
+			$result = $user->save();
+
+			if($result)
+				return 200;
+			else
+				return 500;
+		}
+	}
+
+	public function deleteUser($user_id){
+		$user = $this->getUserById($user_id);
+
+		if($user == null)
+			return 403;
+		else{
+			$result = $user->delete();
+			if($result)
+				return 200;
+			else
+				return 500;
+		}
+
+	}
 }

@@ -54,4 +54,17 @@ class UserController extends Controller
 	public function upgradePosition(){
 		return $this->userService->upgradePosition();
 	}
+
+	public function removeUser(Request $request){
+		$rules = [
+			'type' => 'required|string|in:delete,update',
+			'user_id' => 'required|integer|exists:users,id',
+		];
+		$customMessages = [];
+		$customAttributes = [];
+		$request->validate($rules, $customMessages, $customAttributes);
+
+		return $this->userService->removeUser($request);
+	}
+
 }
